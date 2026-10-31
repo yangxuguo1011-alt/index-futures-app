@@ -20,18 +20,18 @@ orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,FOREGROUND_SERVICE,POST_NOTIFICATIONS,WAKE_LOCK
 
-# Android 构建配置（34 + NDK 25b 是目前 p4a 上最稳的组合；
-# API 35 需要 NDK r27+，不建议轻易改，改了容易编不过）
+# Android 构建配置（p4a v2026.05.09 推荐 NDK 28c，最低 25；target API 34）
 android.api = 34
 android.minapi = 23
-android.ndk = 25b
-android.archs = arm64-v8a,armeabi-v7a
+android.ndk = 28c
+android.archs = arm64-v8a
 android.enable_androidx = True
 android.allow_backup = True
 android.accept_sdk_license = True
 
-# p4a 用 master 分支（含较新的 NDK/API 修复）
-p4a.branch = master
+# p4a 用稳定发行版（master 的 libffi 3.4.6 配方在 CI 上 autoconf 会报
+# LT_SYS_SYMBOL_USCORE 未定义；v2026.05.09 的 libffi 3.4.2 配方稳定）
+p4a.branch = v2026.05.09
 p4a.hook =
 p4a.port =
 

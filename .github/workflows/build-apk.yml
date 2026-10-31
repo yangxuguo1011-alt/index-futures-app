@@ -36,7 +36,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            git zip unzip autoconf libtool pkg-config \
+            git zip unzip autoconf automake libtool libtool-bin libltdl-dev \
+            autopoint gettext pkg-config \
             zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev \
             make
           sudo apt-get clean
