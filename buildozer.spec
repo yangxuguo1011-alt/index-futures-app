@@ -35,8 +35,10 @@ android.accept_sdk_license = True
 #   v2026.05.09 用 Python 3.14/pip 26，会拒绝 android 平台标签的 wheel
 #   （charset_normalizer ... android_24_arm64_v8a.whl is not a supported wheel）。
 p4a.branch = v2024.01.21
-p4a.hook =
-p4a.port =
+
+# 注意：不要保留空的 `p4a.hook =` / `p4a.port =`，
+# buildozer 会把空值当路径传 `--hook=<工程目录>`，p4a 加载 hook 模块时
+# 报 AttributeError: 'NoneType' object has no attribute 'loader'（打包最后一步失败）。
 
 # 图标（可选：放 icon.png 到工程根目录才会生效）
 #icon.filename = icon.png
