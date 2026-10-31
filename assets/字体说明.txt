@@ -1,0 +1,16 @@
+这个目录用于放「可选」的中文字体。
+
+Kivy 默认字体（Roboto）不含中文。main.py 启动时会依次尝试下列路径，
+命中第一个存在的就用作全局字体，绝大多数安卓机型都能命中：
+
+  1. assets/NotoSansSC-Regular.ttf（或 .otf）  ← 你自己放这里的字体，优先级最高
+  2. /system/fonts/NotoSansCJK-Regular.ttc
+  3. /system/fonts/NotoSansSC-Regular.otf
+  4. /system/fonts/DroidSansFallback.ttf
+  5. /system/fonts/SourceHanSansCN-Regular.otf
+  6. /system/fonts/Miui-Regular.ttf
+  7. /system/fonts/HuaweiSans-Regular.ttf
+
+只有当你装完后发现界面中文全是「方块」时，才需要手动放字体：
+随便找一个 .ttf / .otf 的中文字体（思源黑体、微软雅黑、鸿蒙字体等均可），
+重命名成 NotoSansSC-Regular.ttf 放进本目录，然后重新编译安装即可。

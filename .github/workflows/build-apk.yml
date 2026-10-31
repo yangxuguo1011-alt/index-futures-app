@@ -1,0 +1,59 @@
+name: Build Android APK
+
+# 触发方式：
+#   1) 推送 tag（如 v1.0）自动编译
+#   2) 在 GitHub 页面 Actions 里手动点 Run workflow
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 准备 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 安装系统依赖
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            git zip unzip autoconf libtool pkg-config \
+            zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev \
+            make
+          sudo apt-get clean
+
+      - name: 安装 buildozer
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade buildozer "cython==3.0.11"
+
+      # 首次编译会自动下载 Android SDK / NDK（约 1.5GB），耗时较长，属正常现象
+      - name: 编译 debug APK
+        run: buildozer -v android debug
+
+      - name: 上传 APK 产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-futures-tracker-apk
+          path: bin/*.apk
+          if-no-files-found: error
+          retention-days: 30

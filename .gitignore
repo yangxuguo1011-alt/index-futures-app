@@ -1,0 +1,10 @@
+.buildozer/
+bin/
+data/
+outputs/
+盘面多维分析/
+*.log
+*.bak
+__pycache__/
+*.pyc
+.workbuddy/
