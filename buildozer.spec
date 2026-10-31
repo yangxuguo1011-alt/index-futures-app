@@ -20,20 +20,21 @@ orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,FOREGROUND_SERVICE,POST_NOTIFICATIONS,WAKE_LOCK
 
-# Android 构建配置（p4a v2026.05.09 推荐 NDK 28c，最低 25；target API 34）
-# minapi 24：Python 3.14 用到 preadv/pwritev，这两个函数 Android API 24 才声明，
-# 保持 23 会在编译 python3 recipe 时报 "undeclared function"
+# Android 构建配置（target API 34 + NDK 25b：p4a 2024 稳定组合）
+# minapi 24（Android 7.0+）
 android.api = 34
 android.minapi = 24
-android.ndk = 28c
+android.ndk = 25b
 android.archs = arm64-v8a
 android.enable_androidx = True
 android.allow_backup = True
 android.accept_sdk_license = True
 
-# p4a 用稳定发行版（master 的 libffi 3.4.6 配方在 CI 上 autoconf 会报
-# LT_SYS_SYMBOL_USCORE 未定义；v2026.05.09 的 libffi 3.4.2 配方稳定）
-p4a.branch = v2026.05.09
+# p4a 用 2024.01.21 稳定版（Python 3.11 + 老版 pip）：
+#   master 的 libffi 3.4.6 配方 autoconf 会报 LT_SYS_SYMBOL_USCORE 未定义；
+#   v2026.05.09 用 Python 3.14/pip 26，会拒绝 android 平台标签的 wheel
+#   （charset_normalizer ... android_24_arm64_v8a.whl is not a supported wheel）。
+p4a.branch = v2024.01.21
 p4a.hook =
 p4a.port =
 
