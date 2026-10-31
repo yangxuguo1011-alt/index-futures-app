@@ -21,8 +21,10 @@ fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,FOREGROUND_SERVICE,POST_NOTIFICATIONS,WAKE_LOCK
 
 # Android 构建配置（p4a v2026.05.09 推荐 NDK 28c，最低 25；target API 34）
+# minapi 24：Python 3.14 用到 preadv/pwritev，这两个函数 Android API 24 才声明，
+# 保持 23 会在编译 python3 recipe 时报 "undeclared function"
 android.api = 34
-android.minapi = 23
+android.minapi = 24
 android.ndk = 28c
 android.archs = arm64-v8a
 android.enable_androidx = True
